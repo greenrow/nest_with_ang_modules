@@ -1,6 +1,6 @@
 import {ITour} from "../interfaces/tour";
 
-export class TourDto implements ITour{
+export class TourDto implements ITour {
     name: string;
     description: string;
     tourOperator: string;

@@ -17,6 +17,8 @@ import {UserDto} from "../../dto/user-dto";
 import RejectedValue = jest.RejectedValue;
 import {AuthGuard} from "@nestjs/passport";
 import {JwtAuthGuard} from "../../services/Authentication/jwt-auth.guard/jwt-auth.guard.service";
+import {ValidationParamIdPipe} from "../../pipes/param-id.pipe";
+import {UserAuthPipe} from "../../pipes/user-auth.pipe";
 
 @Controller('users')
 export class UsersController {
@@ -34,9 +36,9 @@ export class UsersController {
         return this.userService.getUserById(id);
     }
 
-    @UseGuards(JwtAuthGuard)
+
     @Post()
-    sendUser(@Body() data: UserDto): Promise<User> {
+    sendUser(@Body(UserAuthPipe) data: UserDto): Promise<User> {
 
         return this.userService.checkRegUser(data.login).then((queryRes) => {
             console.log('data reg', queryRes)
@@ -52,10 +54,9 @@ export class UsersController {
         });
 
     }
-
     @UseGuards(AuthGuard('local'))
     @Post(":login")
-    authUser(@Body() data: UserDto, @Param('login') login): any  {
+    authUser(@Body(UserAuthPipe) data: UserDto, @Param('login') login): any  {
         // return this.userService.checkAuthUser(data.login, data.psw).then((queryRes) => {
         //     if (queryRes.length !== 0) {
         //         return Promise.resolve(true);

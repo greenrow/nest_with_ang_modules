@@ -10,6 +10,7 @@ export class AuthService extends PassportStrategy(Strategy){
     }
 
     async validate(login: string, psw: string): Promise<any>{
+        console.log('call validate')
         const user = await this.usersService.checkAuthUser(login, psw);
         if(!user){
             throw new HttpException({
