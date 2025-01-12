@@ -1,6 +1,6 @@
 export interface IOrder {
     tourId: string,
-    userId: string,
+    userId?: string,
     orderPerson: IOrderPerson,
     _id?: string
 }

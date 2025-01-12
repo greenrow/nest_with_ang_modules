@@ -19,6 +19,7 @@ import {AuthGuard} from "@nestjs/passport";
 import {JwtAuthGuard} from "../../services/Authentication/jwt-auth.guard/jwt-auth.guard.service";
 import {ValidationParamIdPipe} from "../../pipes/param-id.pipe";
 import {UserAuthPipe} from "../../pipes/user-auth.pipe";
+import {IUser} from "../../interfaces/user";
 
 @Controller('users')
 export class UsersController {
@@ -38,12 +39,10 @@ export class UsersController {
 
 
     @Post()
-    sendUser(@Body(UserAuthPipe) data: UserDto): Promise<User> {
-
+    registerUser(@Body(UserAuthPipe) data: UserDto): Promise<boolean> {
         return this.userService.checkRegUser(data.login).then((queryRes) => {
-            console.log('data reg', queryRes)
             if (queryRes.length === 0) {
-                return this.userService.sendUser(data);
+                return this.userService.registerUser(data);
             } else {
                 console.log('err - user exists')
                 throw new HttpException({
@@ -57,20 +56,7 @@ export class UsersController {
     @UseGuards(AuthGuard('local'))
     @Post(":login")
     authUser(@Body(UserAuthPipe) data: UserDto, @Param('login') login): any  {
-        // return this.userService.checkAuthUser(data.login, data.psw).then((queryRes) => {
-        //     if (queryRes.length !== 0) {
-        //         return Promise.resolve(true);
-        //     } else {
-        //         console.log('err - user is exists')
-        //         throw new HttpException({
-        //             status: HttpStatus.CONFLICT,
-        //             errorText: 'Пользователь не найден'
-        //         }, HttpStatus.CONFLICT)
-        //     }
-        // });
-
         return this.userService.login(data);
-
     }
 
     @Put(":id")

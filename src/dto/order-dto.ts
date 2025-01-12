@@ -41,7 +41,7 @@ export class OrderPersonDto implements IOrderPerson {
 
 export class OrderDto implements IOrder {
     @IsNotEmpty() tourId: string;
-    @IsNotEmpty() userId: string;
+   // @IsNotEmpty() userId: string;
     @ValidateNested()
     @Type(() => OrderPersonDto)
     orderPerson: OrderPersonDto;

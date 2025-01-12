@@ -4,6 +4,7 @@ import {Tour} from "../../schemas/tour";
 import {ITour} from "../../interfaces/tour";
 import {ValidationParamIdPipe} from "../../pipes/param-id.pipe";
 import {JwtAuthGuard} from "../../services/Authentication/jwt-auth.guard/jwt-auth.guard.service";
+import {RolesGuard} from "../../guards/roles";
 
 @Controller('tours')
 export class ToursController {

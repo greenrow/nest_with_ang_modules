@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument } from 'mongoose';
-import {IUser} from "../interfaces/user";
+import mongoose, { HydratedDocument } from 'mongoose';
+import {IUser, Roles} from "../interfaces/user";
 
 export type UserDocument = HydratedDocument<User>;
 
@@ -8,13 +8,8 @@ export type UserDocument = HydratedDocument<User>;
 export class User implements IUser {
 
     @Prop() psw: string;
-
-    @Prop() cardNumber: string;
-
     @Prop() login: string
+    @Prop() role: Roles
 
-    @Prop() email: string
-
-    @Prop() id: string
-
-}   export const UserSchema = SchemaFactory.createForClass(User);
+}
+export const UserSchema = SchemaFactory.createForClass(User);

@@ -3,7 +3,7 @@ import {ArgumentMetadata, BadRequestException, Injectable, PipeTransform} from '
 @Injectable()
 export class UserAuthPipe implements PipeTransform {
   transform(value: any, metadata: ArgumentMetadata) {
-    console.log('value user', value)
+    console.log('value', value)
     if (!value || !(value.psw && value.login)) {
       throw new BadRequestException("Неверный параметр запроса")
     }

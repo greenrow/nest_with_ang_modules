@@ -1,10 +1,9 @@
-import {IUser} from "../interfaces/user";
+import {IUser, Roles} from "../interfaces/user";
+import {Contains, IsDefined, IsNotEmpty} from "class-validator";
 
 export class UserDto implements IUser {
+    @IsNotEmpty()
     psw: string;
-    cardNumber: string;
+    @IsNotEmpty()
     login: string;
-    email: string;
-    id: string;
-
 }

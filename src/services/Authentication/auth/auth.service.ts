@@ -9,14 +9,14 @@ export class AuthService extends PassportStrategy(Strategy){
         super({usernameField: 'login', passwordField: 'psw'})
     }
 
-    async validate(login: string, psw: string): Promise<any>{
+    async validate(login: string, psw: string): Promise<any> {
         console.log('call validate')
         const user = await this.usersService.checkAuthUser(login, psw);
-        if(!user){
+        if(user.length === 0) {
             throw new HttpException({
                 status: HttpStatus.CONFLICT,
                 errorText: 'Пользователь не найден'
-            }, HttpStatus.CONFLICT)
+            }, HttpStatus.CONFLICT);
         }
         return true;
     }
