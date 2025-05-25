@@ -24,19 +24,19 @@ export class OrderService {
 
     async getOrdersByUserId(id: string): Promise<Order[]>{
         console.log('*****id', id)
-      // return  this.orderModel.find().populate({
-      //       path: 'userId',
-      //       select: 'login',
-      //   }).populate({
-      //     path: 'tourId'
-      // }).then((data) => data.filter((order) => {
-      //     console.log('order', order)
-      //     return (order.userId as any)._id == id;
-      // }));
-
-        this.orderModel.find({userId: id}).then((data) => {
-
-        })
+      return  this.orderModel.find().populate({
+            path: 'userId',
+            select: 'login',
+        }).populate({
+          path: 'tourId'
+      }).then((data) => data.filter((order) => {
+          console.log('order', order)
+          return (order.userId as any)._id == id;
+      }));
+        //
+        // this.orderModel.find({userId: id}).then((data) => {
+        //
+        // })
     }
 
 }
